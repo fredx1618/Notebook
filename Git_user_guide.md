@@ -1,10 +1,12 @@
-# 一、安装Git #
+# <center> Git User Guide </center> #
 
-## 1. Ubuntu ##
+## 一、安装Git ##
+
+### 1. Ubuntu ###
 
     sudo apt install git
 
-## 2. Windows ##
+### 2. Windows ###
 
 （1）从Git官网上[下载安装程序](https://git-scm.com/download/win)  
 （2）在开始菜单里找到“Git” -> “Git Bash”  
@@ -13,7 +15,7 @@
     $ git config --global user.name "your name"
     $ git config --global user.email "email@example.com"
 
-# 二、创建版本库 #
+## 二、创建版本库 ##
 
 <font color=#FF0000>注意事项：</font>  
 （1）版本控制系统只能追踪文本文件的改动。  
@@ -40,16 +42,17 @@ step3: 把文件添加到版本库
     $ git commit -m "wrote a readme file"
 
 
-### 三、版本管理 ###
+## 三、版本管理 ##
 
-#### 1. 版本库操作 ####
+### 1. 版本库操作 ###
 
     $ git status  # 查看版本库状态
     $ git diff    # 查看修改内容，在git add之前使用才有效。
     $ git log     # 版本历史记录
     $ git log --pretty=oneline
 
-#### 2. 版本回退 ####
+### 2. 版本回退 ###
+
 Git中，用`HEAD`表示当前版本，上一个版本是`HEAD^`，上上一个版本是`HEAD^^`，往上100个版本是`HEAD~100`。
   
     $ git reset --hard HEAD^
@@ -66,7 +69,8 @@ Git中，用`HEAD`表示当前版本，上一个版本是`HEAD^`，上上一个�
 
 Git的版本回退速度非常快，因为Git在内部有个指向当前版本的HEAD指针。
 
-#### 3. 工作区和暂存区 ####
+### 3. 工作区和暂存区 ###
+
 Workding Directory：电脑中能看到的目录，如Git文件夹。  
 Repository：工作区有一个隐藏目录`.git`，是Git的版本库。版本库中主要文件有：（1）被称为stage的暂存区，master分支和指向master的指针叫HEAD。  
 
@@ -74,17 +78,20 @@ Repository：工作区有一个隐藏目录`.git`，是Git的版本库。版本�
 step1: 用`git add`指令把文件添加进去，实际上是把文件修改添加到暂存区；  
 step2: 用`git commit`指令提交更改，实际上就是把暂存区的所有内容提交到当前分支。
 
-#### 4. 管理修改 ####
+### 4. 管理修改 ###
+
 Git管理的是修改，而不是文件。`git commit`只负责把暂存区的修改提交，而不理会工作区的文件。<font color=#FF0000>因此，每次修改，如果不用`git add`到暂存区，`git commit`不对将其加到commit中</font>。
 
     $ git diff HEAD -- filename.txt  # 可查看工作区和版本库里最新版本的区别
 
-#### 5. 撤销修改 ####
+### 5. 撤销修改 ###
+
 （1）当你改乱了工作区某个文件内容，想直接丢弃工作区的修改时，用指令`git checkout -- <file>`。  
 （2）当你不但改乱了工作区某个文件内容，还添加到了暂存区时，想要丢掉修改，分两步，第一步用指令`git reset HEAD <file>`回到（1），第二步按照（1）操作。  
 （3）已经提交了不合适的修改到版本库时，想要撤销本次修改，可参考“版本回退”一节。
 
-#### 6. 删除文件 ####
+### 6. 删除文件 ###
+
 通常直接在文件管理器中把没用的文件删除，或者用`rm`指令删除：
 
     $ rm test.txt
@@ -100,9 +107,10 @@ Git管理的是修改，而不是文件。`git commit`只负责把暂存区的�
 <font color = #FF0000> `git check`其实是用版本库中的版本替换工作区的版本。 </font>
 
 
-### 四、远程库 ###
+## 四、远程库 ##
 
-#### 1. 配置远程库 ####
+### 1. 配置远程库 ###
+
 step1：创建SSH Key。在用户主目录下查看有没有.ssh目录和id\_rsa（私钥）和id\_rsa.pub（公钥）文件，如果有跳过这一步，如果没有，需创建SSH Key：  
 
 	$ ssh-keygen -t rsa -C "youremail@example.com"
@@ -110,7 +118,8 @@ step1：创建SSH Key。在用户主目录下查看有没有.ssh目录和id\_rsa
 然后采用默认设置。  
 step2：登陆GitHub，添加SSH Key，填上任意Title，在Key文本框里粘贴id_rsa.pub文件内容。GitHub上可以添加多个SSH Key。
 
-#### 2. 添加远程库并同步 ####
+### 2. 添加远程库并同步 ###
+
 step1：在GitHub上创建一个新库，如：learngit  
 step2：将本地Git库与远程库关联，用`git remote add origin`指令：
 
@@ -120,7 +129,7 @@ step3：将本地库所有内容推送到远程库上，用`git push`指令，<f
 
 	$ git push -u origin master  # -u 将本地master分支与远程master分支关联，只需首次推送时使用
 
-#### 3. 从远程库克隆 ####
+### 3. 从远程库克隆 ###
 step1：在GitHub创建一个新库，如：gitskills  
 step2：将GitHub的gitskills克隆至本地Git库，用`git clone`指令：
 	
@@ -129,11 +138,12 @@ step2：将GitHub的gitskills克隆至本地Git库，用`git clone`指令：
 <font color = #FF0000> 注：</font>Git支持多种协议，包括https，但ssh速度最快。
 
 
-### 五、分支管理 ###
+## 五、分支管理 ##
 
 分支作用：假设你准备开发一个新功能，但是需要两周才能完成，第一周你写了50%的代码，如果立刻提交，由于代码还没写完，不完整的代码库会导致别人不能干活了。如果等代码全部写完再一次提交，又存在丢失每天进度的巨大风险。现在有了分支，就不用怕了。你创建了一个属于你自己的分支，别人看不到，还继续在原来的分支上正常工作，而你在自己的分支上干活，想提交就提交，直到开发完毕后，再一次性合并到原来的分支上，这样，既安全，又不影响别人工作。
 
-#### 1. 创建与合并分支 ####
+### 1. 创建与合并分支 ###
+
 文件每次提交，Git都会把它们串成一条时间线，这条时间线就是一个分支。Git默认只有一条时间线，称为主分支，即：`master`分支。`HEAD`严格来说不是指向提交，而是指向`master`，`master`才是指向提交的。所以，`HEAD`指向的是当前分支。 
 
 ![](https://i.imgur.com/JEhbXr5.png)
@@ -186,7 +196,8 @@ step5：删除`dev`分支
 合并某分支到当前分支：`git merge <name>`  
 删除分支：`git branch -d <name>`  
 
-#### 2. 解决冲突 ####
+### 2. 解决冲突 ###
+
 当两个分支（master和feature1）各自都分别有新的提交，如下图所示：
 
 ![](https://i.imgur.com/nK8W1s5.png)
@@ -206,7 +217,8 @@ step5：删除`dev`分支
 
 最后删除`feature1`分支。
 
-#### 3. 分支管理策略 ####
+### 3. 分支管理策略 ###
+
 通常在合并分支时，如果可能，Git会用`Fast forward`模式，但在这种情况下，删除分支后，会丢掉分支信息。如果要强制禁用`Fast forward`模式，Git就会在merge时生成一个新的commit，这样从分支历史上就可以看出分支信息。
   
 准备合并分支，如：`dev`
@@ -223,7 +235,7 @@ step5：删除`dev`分支
 
 ![](https://i.imgur.com/mdEfp71.png)
 
-#### 4. Bug分支 ####
+### 4. Bug分支 ###
 当接到一个代号101的bug任务时，但当前正在`dev`上进行的工作还没有提交，可以使用`stash`功能，将当前工作现场储藏起来，等以后恢复现场后继续工作
 
 	$ git stash   # 将当前工作现场储藏起来
@@ -245,7 +257,8 @@ step5：删除`dev`分支
 
 	$ git stash apply stash@{0}
 
-#### 5. Feature分支 ####
+### 5. Feature分支 ###
+
 某个项目需要开发新功能，在新功能开发完毕后，在新建的分支`feature-vulcan`下开发完毕后，切回`dev`，准备合并，此时接到指令，新能共必须取消，需要删除新功能
 	
 	$ git branch -d feature-vulcan
@@ -254,7 +267,8 @@ step5：删除`dev`分支
 
 	$ git branch -D feature-vulcan
 
-#### 6. 多人协作 ####
+### 6. 多人协作 ###
+
 当从远程库克隆时，实际上Git自动把本地的`master`分支和远程的`master`分支对应起来了。要查看远程库信息
 
 	$ git remote
@@ -290,14 +304,14 @@ step5：删除`dev`分支
     
 如果`git pull`提示`no tracking information`，则说明本地分支和远程分支的连接关系没有创建，用指令`git branch --set-upstream-to <branch-name> origin/<branch-name>`。
 
-#### 7. Rebase ####
+### 7. Rebase ###
 
 
-### 六、标签管理 ###
+## 六、标签管理 ##
 
 发布一个版本时，通常在版本库中打一个标签。将来无论什么时候，取某个标签的版本，就是把那个打标签的时刻的历史版本取出来，所以，标签也是版本库的一个快照。tag是一个让人容易记住的有意义名字，它跟某个commit绑在一起。
 
-#### 1. 创建标签 ####
+### 1. 创建标签 ###
 
 step1：切换到需要打标签的分支上
 
@@ -327,7 +341,7 @@ step2：创建一个新标签
 <font color = #ff0000>标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，那么这两个分支上都可以看到这个标签。</font>
 
 
-#### 2. 操作标签 ####
+### 2. 操作标签 ###
 
 （1）删除标签  
 
@@ -346,9 +360,10 @@ step2：创建一个新标签
 	$ git push origin :refs/tags/<tagname>
 
 
-### 七、自定义Git ###
+## 七、自定义Git ##
 
-#### 1. 忽略特殊文件 ####
+### 1. 忽略特殊文件 ###
+
 在Git工作区的根目录下创建一个特殊的`.gitignore`文件，然后把要忽略的文件名填进去，Git会自动忽略这些文件。  
 不需要从头写`.gitignore`文件，GitHub已经为我们准备了各种配置文件，只需要组合一下就可以使用了。所有配置文件可以直接在线浏览：[https://github.com/github/gitignore](https://github.com/github/gitignore "https://github.com/github/gitignore")  
 
@@ -364,7 +379,7 @@ step3：用`git status`指令检查工作区是否working directory clean
 	$ git add -f <filename>  # 强制添加到Git
 	$ git check-ignore -v <filename>  # 检查那个规则写错了
 
-#### 2. 配置别名 ####
+### 2. 配置别名 ###
 
 常用别名，status->st，checkout->co，commit->ci，branch->br
 
@@ -384,7 +399,7 @@ step3：用`git status`指令检查工作区是否working directory clean
 配置Git时候，加上`--global`是针对当前用户起作用的，如果不加，那只针对当前的库起作用。每个库的Git配置文件都放在`.git/config`文件中。配置别名也可以直接修改配置文件。
 
 
-### 八、搭建Git服务器 ###
+## 八、搭建Git服务器 ##
 
 step1：安装Git
 
@@ -426,9 +441,11 @@ step6：克隆远程库
 
 
 &nbsp;
-### <font color=#FF0000>Common Problems and Solutions</font> ###
 
-#### warning: LF will be replaced by CRLF in xxx ###
+## <font color=#FF0000>Common Problems and Solutions</font> ##
+
+### warning: LF will be replaced by CRLF in xxx ###
+
 问题原因：不同操作系统所使用的换行符是不一样的,三大主流操作系统的换行符：  
 
 - Unix/Linux 采用换行`LF`表示下一行（LineFeed，换行）
@@ -446,6 +463,7 @@ step6：克隆远程库
 - input，add时Git会把CRLF转换为LF格式，而checkout时仍为LF格式，因此Windows系统不推荐设置此值。  
 
 解决办法：  
+
 1. 将core.autocrlf设为false，如果只工作Windows或Linux平台没问题，如果存在跨平台，慎用。  
 2. 当core.autocrlf设为true时，当上传一个二进制文件，Git可能会将二进制文件误认为是文本文件，会修改二进制文件，从而产生隐患。  
 
